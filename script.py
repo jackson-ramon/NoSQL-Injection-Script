@@ -5,8 +5,10 @@ import sys
 
 dictionary = '.+*<>{}\\~0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!#$%&()_,;:[]-_'
 
+username = ''  # Variable global para almacenar el username
+
 def getNextChars(url, pfx=''):
-    username = ''
+    global username  # Utilizamos la variable global
     resp = []
     s = requests.Session()
     for ch in dictionary:
@@ -34,7 +36,6 @@ def getNextChars(url, pfx=''):
         for r in resp:
             getNextChars(url, r)
 
-    print(f"Username: {username}")
     return resp
 
 if __name__ == "__main__":
@@ -44,3 +45,6 @@ if __name__ == "__main__":
     
     url = sys.argv[1]
     getNextChars(url)
+    
+    if username:
+        print(f"Username: {username}")
